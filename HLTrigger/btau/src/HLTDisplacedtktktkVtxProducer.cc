@@ -215,7 +215,7 @@ void HLTDisplacedtktktkVtxProducer::produce(edm::Event& iEvent, const edm::Event
       cand3=trackcands->begin();
       if(firstTrackMass==secondTrackMass && firstTrackMass==thirdTrackMass && resOpt_<=0){cand3 = cand2+1;}
 
-      for (cand3=trackcands->begin(); cand3!=trackcands->end(); cand3++) {
+      for (; cand3!=trackcands->end(); cand3++) {
 
         TrackRef tk3 = cand3->get<TrackRef>();
         if(tk1==tk3 || tk2==tk3) continue;
