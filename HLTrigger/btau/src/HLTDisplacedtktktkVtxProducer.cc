@@ -136,7 +136,7 @@ void HLTDisplacedtktktkVtxProducer::produce(edm::Event& iEvent, const edm::Event
 
   // look at all trackcands,  check cuts and make vertices
   double e1,e2,e3;
-  Particle::LorentzVector p,p1,p2,p3;
+  Particle::LorentzVector p,p1,p2,p3,pres;
 
   if ( trackcands->size()  < 3 )   return;
 	
@@ -201,12 +201,12 @@ void HLTDisplacedtktktkVtxProducer::produce(edm::Event& iEvent, const edm::Event
       e2 = sqrt(cand2->momentum().Mag2()+secondTrackMass2);
       p1 = Particle::LorentzVector(cand1->px(),cand1->py(),cand1->pz(),e1);
       p2 = Particle::LorentzVector(cand2->px(),cand2->py(),cand2->pz(),e2);
-      p = p1+p2;
+      pres = p1+p2;
 			 	
       if(resOpt_>0)
         {
-          if (p.pt()<minPtRes_) continue;
-          double invmassRes = abs(p.mass());
+          if (pres.pt()<minPtRes_) continue;
+          double invmassRes = abs(pres.mass());
           LogDebug("HLTDisplacedtktktkVtxProducer") << " ... 1-2 invmass= " << invmassRes;
           if (invmassRes<minInvMassRes_) continue;
           if (invmassRes>maxInvMassRes_) continue;
@@ -231,7 +231,7 @@ void HLTDisplacedtktktkVtxProducer::produce(edm::Event& iEvent, const edm::Event
 
         e3 = sqrt(cand3->momentum().Mag2()+thirdTrackMass2);
         p3 = Particle::LorentzVector(cand3->px(),cand3->py(),cand3->pz(),e3);
-        p = p+p3;
+        p = p1+p2+p3;
 			 
         if (p.pt()<minPtTri_) continue;
         double invmass = abs(p.mass());
