@@ -227,7 +227,7 @@ void HLTDisplacedtktktkVtxProducer::produce(edm::Event& iEvent, const edm::Event
  	
         // cuts
         if (abs(cand3->eta())>maxEta_) continue;
-        if (cand3->pt() < minPtTk3_) continue;
+        if (cand3->pt() < thirdTrackPt) continue;
 
         e3 = sqrt(cand3->momentum().Mag2()+thirdTrackMass2);
         p3 = Particle::LorentzVector(cand3->px(),cand3->py(),cand3->pz(),e3);
